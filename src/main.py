@@ -3,9 +3,16 @@ from repository.contactRepository import ContactRepository
 from ui.console import Console
 import os
 
-__author__ = 'Team0'
+"""
+Authors:
+Forgacs Amelia
+Dragan Alex
+Enasoae Simona
+VVSS
+Date: 19.05.2020
+"""
 
-path = os.path.abspath("src/contacte.txt")
+path = os.path.abspath("contacts.txt")
 repo = ContactRepository(path)
 ctr = AgendaController(repo)
 

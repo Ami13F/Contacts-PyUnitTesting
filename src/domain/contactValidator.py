@@ -1,7 +1,14 @@
 from utils.constants import VALID_GROUPS
 from utils.util import Util
 
-__author__ = 'Team0'
+"""
+Authors:
+Forgacs Amelia
+Dragan Alex
+Enasoae Simona
+VVSS
+Date: 19.05.2020
+"""
 
 
 class ValidationException(Exception):
@@ -20,23 +27,18 @@ class ContactValidator:
         Validates a contact, throws ValidationException if incorrect data.
         """
 
-        exc = False
         msg = ""
 
         if contact.name is "" or None:
-            msg += "Name cannot be null."
-            exc = True
+            msg += "Name cannot be empty."
         if not contact.group in VALID_GROUPS:
             msg += "Not a valid group."
-            exc = True
         if contact.phoneNr is "" or None:
             msg += "Phone nr cannot be null."
-            exc = True
         if not Util.isOnlyDigits(contact.phoneNr):
             msg += "Phone nr can only be digits."
-            exc = True
 
-        if exc is True:
+        if msg:
             raise ValidationException(msg)
 
     @staticmethod

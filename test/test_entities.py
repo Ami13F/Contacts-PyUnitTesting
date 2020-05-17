@@ -1,6 +1,13 @@
-from domain.entities import Contact
+from domain.contact import Contact
 
-__author__ = 'Team0'
+"""
+Authors:
+Forgacs Amelia
+Dragan Alex
+Enasoae Simona
+VVSS
+Date: 19.05.2020
+"""
 
 import unittest
 
@@ -8,8 +15,15 @@ import unittest
 class TestEntities(unittest.TestCase):
 
     def test_entity(self):
-        contact = Contact("1", "George", "0747640445", "Prieteni")
+        contact = Contact("1", "Francis", "0747640445", "Friends")
         self.assertEqual(contact._id, "1")
-        self.assertEqual(contact.name, "George")
+        self.assertIs(contact.name, "Francis")
         self.assertEqual(contact.phoneNr, "0747640445")
-        self.assertEqual(contact.group, "Prieteni")
+        self.assertEqual(contact.group, "Friends")
+
+    def test_empty_entity(self):
+        contact = Contact(_name="John")
+        self.assertIsNone(contact.group)
+        self.assertIsNotNone(contact.name)
+        self.assertIsNone(contact.phoneNr)
+        self.assertIsNone(contact._id)

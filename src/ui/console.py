@@ -2,7 +2,14 @@ from domain.contactValidator import ValidationException, DuplicationException
 from repository.contactRepository import RepositoryException
 from utils.constants import NEWLINE
 
-__author__ = 'Team0'
+"""
+Authors:
+Forgacs Amelia
+Dragan Alex
+Enasoae Simona
+VVSS
+Date: 19.05.2020
+"""
 
 
 class Console:

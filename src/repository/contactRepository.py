@@ -1,7 +1,14 @@
 from domain.contact import Contact
 from utils.constants import SEP, NEWLINE
 
-__author__ = 'Team0'
+"""
+Authors:
+Forgacs Amelia
+Dragan Alex
+Enasoae Simona
+VVSS
+Date: 19.05.2020
+"""
 
 
 class RepositoryException(Exception):
@@ -12,6 +19,7 @@ class ContactRepository:
 
     def __init__(self, _fileName):
         self.__fileName = _fileName
+        self.__items = self.__load_from_file()
 
     @property
     def fileName(self):
@@ -21,10 +29,8 @@ class ContactRepository:
         """
         Adds a new contact into the file.
         """
-
-        all = self.__load_from_file()
-        all.append(contact)
-        self.__save_to_file(all)
+        self.__items.append(contact)
+        self.__save_to_file([contact])
 
     def __save_to_file(self, contacts):
         try:
@@ -39,52 +45,41 @@ class ContactRepository:
         f.close()
 
     def __load_from_file(self):
-
         try:
-            f = open(self.fileName, "r")
+            contacts = []
+            with open(self.fileName, "r") as f:
+                for line in f.readlines():
+                    attrs = line.strip().split(SEP)
+                    _id = attrs[0]
+                    _name = attrs[1]
+                    _phoneNr = attrs[2]
+                    _group = attrs[3]
+                    contact = Contact(_id, _name, _phoneNr, _group)
+                    contacts.append(contact)
+            return contacts
         except IOError as ioe:
             raise RepositoryException(ioe)
 
-        contacts = []
-
-        line = f.readline().strip()
-        while line != "":
-            attrs = line.split(SEP)
-            _id = attrs[0]
-            _name = attrs[1]
-            _phoneNr = attrs[2]
-            _group = attrs[3]
-            contact = Contact(_id, _name, _phoneNr, _group)
-            contacts.append(contact)
-            line = f.readline().strip()
-
-        f.close()
-
-        return contacts
-
     def get_all(self):
-        return self.__load_from_file()
+        return self.__items
 
     def find(self, _name):
         """
         Finds a contact by a given name.
         """
-        all = self.get_all()
-
-        for c in all:
+        for c in self.__items:
             if c.name == _name:
                 return c
         raise RepositoryException("Found no contacts with name : " + _name)
 
-    def getAllFor(self, _group):
+    def get_all_from_group(self, _group):
         """
         Returns all the contacts in a given group.
         Sorted by name.
         """
-        all = self.get_all()
         contacts_in_groups = []
 
-        for c in all:
+        for c in self.__items:
             if c.group == _group:
                 contacts_in_groups.append(c)
 
@@ -95,4 +90,7 @@ class ContactRepository:
         return sorted_contacts
 
     def size(self):
-        return len(self.get_all())
+        return len(self.__items)
+
+    def clear(self):
+        self.__items.clear()

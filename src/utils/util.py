@@ -1,6 +1,13 @@
 from utils.constants import NUMBERS, CSV_SEP, NEWLINE
 
-__author__ = 'Team0'
+"""
+Authors:
+Forgacs Amelia
+Dragan Alex
+Enasoae Simona
+VVSS
+Date: 19.05.2020
+"""
 
 
 class Util:

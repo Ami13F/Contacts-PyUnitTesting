@@ -1,16 +1,25 @@
 from utils.util import Util
 
-__author__ = 'Team0'
+"""
+Authors:
+Forgacs Amelia
+Dragan Alex
+Enasoae Simona
+VVSS
+Date: 19.05.2020
+"""
 
 import unittest
 
-
 class TestUtil(unittest.TestCase):
 
-    def test_methods(self):
+    def test_UtilIsOnlyDigits(self):
 
-        s = "07464393"
-        self.assertTrue(Util.isOnlyDigits(s))
+        number = "07464393"
+        self.assertTrue(Util.isOnlyDigits(number))
 
-        s = "fjfkg99"
-        self.assertFalse(Util.isOnlyDigits(s))
+        number = "fjfkg99"
+        self.assertFalse(Util.isOnlyDigits(number))
+
+if __name__ == '__main__':
+    unittest.main()

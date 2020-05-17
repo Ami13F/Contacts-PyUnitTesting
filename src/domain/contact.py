@@ -1,14 +1,21 @@
 from utils.constants import SEP
 
-__author__ = 'Team0'
+"""
+Authors:
+Forgacs Amelia
+Dragan Alex
+Enasoae Simona
+VVSS
+Date: 19.05.2020
+"""
 
 
 class Contact:
 
-    def __init__(self, _id, _name, _phoneNr, _group):
+    def __init__(self, _id=None, _name=None, _phoneNo=None, _group=None):
         self.__id = _id
         self.__name = _name
-        self.__phoneNr = _phoneNr
+        self.__phoneNo = _phoneNo
         self.__group = _group
 
     @property
@@ -21,7 +28,7 @@ class Contact:
 
     @property
     def phoneNr(self):
-        return self.__phoneNr
+        return self.__phoneNo
 
     @property
     def group(self):
@@ -31,4 +38,4 @@ class Contact:
         return self._id == other._id
 
     def __str__(self, *args, **kwargs):
-        return self.name + SEP + self.phoneNr + SEP + self.group
+        return self.name + SEP + self.phoneNo + SEP + self.group
