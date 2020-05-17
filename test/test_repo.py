@@ -9,7 +9,8 @@ Enasoae Simona
 VVSS
 Date: 19.05.2020
 """
-
+import os
+from shutil import copyfile
 import unittest
 
 
@@ -18,7 +19,11 @@ class TestRepository(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.__repo = ContactRepository("./test/contacts.txt")
+        cls.storage = "./test/main_storage.txt"
+        cls.filename = "./test/contacts.txt"
+        if not os.path.exists(cls.filename):
+            copyfile(cls.storage, cls.filename)
+        cls.__repo = ContactRepository(cls.filename)
 
 
     @classmethod
@@ -28,6 +33,7 @@ class TestRepository(unittest.TestCase):
         """
         super().tearDownClass()
         cls.__repo.clear()
+        os.remove(cls.filename)
 
 
     @property
@@ -43,19 +49,16 @@ class TestRepository(unittest.TestCase):
         self.assertEqual(self.repo.find(contact.name), contact)
 
 
-    def test_add_failed(self):
-        pass
-
-
     def test_contact_not_exists(self):
+        contact = Contact("11231", "Alvin", "123412342", "Friends")
         try:
             self.repo.find("Alvin")
             assert False
         except RepositoryException:
             assert True
+        self.assertNotEqual(self.repo.get_all_from_group("Friends")[0], contact)
 
-        self.assertEqual(self.repo.get_all_from_group("Friends")[0], contact)
-
+    def test_inexistent_job_contacts(self):
         try:
             self.repo.get_all_from_group("Job")
             assert False

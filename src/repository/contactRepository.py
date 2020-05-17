@@ -30,7 +30,7 @@ class ContactRepository:
         Adds a new contact into the file.
         """
         self.__items.append(contact)
-        self.__save_to_file([contact])
+        self.__save_to_file(self.__items)
 
     def __save_to_file(self, contacts):
         try:
